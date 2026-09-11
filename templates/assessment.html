@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mental Health Assessment | MindSentinel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 Mind<span>Sentinel</span>
+    </div>
+
+    <nav>
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/assessment">
+            Assessment
+        </a>
+
+        <a href="#">
+            AI Support
+        </a>
+
+        <a href="#">
+            Mood
+        </a>
+
+        <a href="#">
+            Resources
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard">
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <p class="small-title">
+                MENTAL WELLBEING ASSESSMENT
+            </p>
+
+            <h1>
+                How are you feeling? 🧠
+            </h1>
+
+            <p>
+                Please answer the following questions honestly.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <section class="dashboard-section">
+
+        <div class="action-card">
+
+            <h2>
+                Mental Health Assessment
+            </h2>
+
+            <p>
+                Over the past few days, how often have you
+                experienced the following?
+            </p>
+
+
+            <form method="POST"
+                  action="/assessment">
+
+
+                <!-- QUESTION 1 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        1. Have you been feeling nervous or anxious?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q1"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q1"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q1"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q1"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 2 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        2. Have you been feeling sad or hopeless?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q2"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q2"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q2"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q2"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 3 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        3. Have you experienced problems with sleep?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q3"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q3"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q3"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q3"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 4 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        4. Have you had difficulty concentrating?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q4"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q4"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q4"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q4"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 5 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        5. Have you lost interest in activities
+                        you normally enjoy?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q5"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q5"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q5"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q5"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 6 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        6. Do you experience frequent fear or insecurity?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q6"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q6"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q6"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q6"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 7 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        7. Do you frequently remember distressing
+                        or traumatic experiences?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q7"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q7"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q7"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q7"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 8 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        8. Have you been avoiding people or social activities?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q8"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q8"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q8"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q8"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <!-- QUESTION 9 -->
+
+                <div class="assessment-question">
+
+                    <h3>
+                        9. Have you been feeling unusually stressed or overwhelmed?
+                    </h3>
+
+                    <label>
+                        <input type="radio"
+                               name="q9"
+                               value="0"
+                               required>
+                        Never
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q9"
+                               value="1">
+                        Sometimes
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q9"
+                               value="2">
+                        Often
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="q9"
+                               value="3">
+                        Nearly every day
+                    </label>
+
+                </div>
+
+
+                <br>
+
+                <button type="submit">
+                    Analyze My Wellbeing →
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <div class="privacy-box">
+
+        🔒 <strong>Your Privacy Matters</strong>
+
+        <p>
+            Your responses are intended for wellbeing screening
+            support. This assessment does not provide a medical
+            diagnosis.
+        </p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="logo">
+        🧠 Mind<span>Sentinel</span>
+    </div>
+
+    <p>
+        AI-Powered Mental Health Monitoring
+    </p>
+
+</footer>
+
+</body>
+
+</html>

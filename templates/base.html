@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}MindSentinel{% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        🧠
+
+        <span>
+            MindSentinel
+        </span>
+
+    </div>
+
+
+    <nav class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('assessment') }}">
+            Assessment
+        </a>
+
+        <a href="{{ url_for('emotion') }}">
+            Emotion
+        </a>
+
+        <a href="{{ url_for('mood_history') }}">
+            Mood Tracker
+        </a>
+
+    </nav>
+
+
+    <a href="{{ url_for('assessment') }}"
+       class="nav-button">
+
+        Check Your Mood
+
+    </a>
+
+</header>
+
+
+
+<!-- =====================================================
+     FLASH MESSAGES
+===================================================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        <div style="
+            width:90%;
+            max-width:1200px;
+            margin:20px auto;
+        ">
+
+            {% for category, message in messages %}
+
+                <div class="flash-message"
+                     style="
+                        padding:14px 18px;
+                        margin-bottom:10px;
+                        border-radius:9px;
+                        background:#f1f5f9;
+                        color:#263b59;
+                     ">
+
+                    {{ message }}
+
+                    <button class="flash-close"
+                            type="button"
+                            style="
+                                float:right;
+                                border:none;
+                                background:none;
+                                cursor:pointer;
+                                font-size:18px;
+                            ">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+
+<!-- =====================================================
+     PAGE CONTENT
+===================================================== -->
+
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div>
+
+        <h3>
+            🧠 MindSentinel
+        </h3>
+
+        <p>
+            AI-powered dynamic mental wellbeing
+            monitoring and distress risk prediction
+            system.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Quick Links
+        </h4>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('assessment') }}">
+            Assessment
+        </a>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Important
+        </h4>
+
+        <p>
+            MindSentinel is a wellbeing screening
+            and support system, not a medical
+            diagnosis tool.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

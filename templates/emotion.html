@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Emotion Detection | MindSentinel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 MindSentinel
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="emotion-container">
+
+    <div class="emotion-card">
+
+        <div class="emotion-icon">
+            🧠
+        </div>
+
+        <h1>Emotion Detection</h1>
+
+        <p class="description">
+
+            Express how you are feeling.
+            MindSentinel will analyze your text
+            using Natural Language Processing.
+
+        </p>
+
+
+        <form method="POST">
+
+            <label for="text">
+                How are you feeling today?
+            </label>
+
+            <textarea
+                id="text"
+                name="text"
+                rows="6"
+                placeholder="Example: I feel very lonely and sad today..."
+                required>{{ user_text or "" }}</textarea>
+
+
+            <button type="submit">
+
+                🔍 Analyze Emotion
+
+            </button>
+
+        </form>
+
+
+        {% if emotion %}
+
+        <div class="emotion-result">
+
+            <h2>
+                Emotion Detected
+            </h2>
+
+
+            {% if emotion == "Happy" %}
+
+                <div class="emotion-emoji">
+                    😊
+                </div>
+
+            {% elif emotion == "Sad" %}
+
+                <div class="emotion-emoji">
+                    😔
+                </div>
+
+            {% elif emotion == "Angry" %}
+
+                <div class="emotion-emoji">
+                    😡
+                </div>
+
+            {% elif emotion == "Fear" %}
+
+                <div class="emotion-emoji">
+                    😨
+                </div>
+
+            {% else %}
+
+                <div class="emotion-emoji">
+                    😐
+                </div>
+
+            {% endif %}
+
+
+            <h1 class="emotion-name">
+                {{ emotion }}
+            </h1>
+
+
+            <p>
+
+                Model Confidence:
+                <strong>{{ confidence }}%</strong>
+
+            </p>
+
+
+            <div class="result-message">
+
+                {% if emotion == "Happy" %}
+
+                    😊 It looks like you are experiencing
+                    positive emotions.
+
+                {% elif emotion == "Sad" %}
+
+                    💙 It seems that you may be experiencing
+                    sadness. Consider talking to someone
+                    you trust.
+
+                {% elif emotion == "Angry" %}
+
+                    💭 You may be experiencing frustration
+                    or anger. Taking a short break and
+                    practicing calm breathing may help.
+
+                {% elif emotion == "Fear" %}
+
+                    💙 You may be experiencing fear or worry.
+                    Consider reaching out to someone you trust.
+
+                {% else %}
+
+                    😐 Your text appears to express a
+                    relatively neutral emotional state.
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <p class="privacy-note">
+
+            🔒 Your information should be handled
+            confidentially. This feature is for wellbeing
+            support and screening, not medical diagnosis.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

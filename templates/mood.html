@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mood Tracking | MindSentinel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+     ===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 Mind<span>Sentinel</span>
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('assessment') }}">
+            Assessment
+        </a>
+
+        <a href="{{ url_for('emotion') }}">
+            Emotion
+        </a>
+
+        <a href="{{ url_for('mood_history') }}">
+            Mood History
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     MOOD PAGE
+     ===================================================== -->
+
+<section class="mood-page">
+
+    <div class="mood-card">
+
+        <div class="mood-icon">
+            💙
+        </div>
+
+        <h1>
+            Track Your Mood
+        </h1>
+
+        <p class="mood-description">
+
+            How are you feeling right now?
+
+            Select the mood that best describes
+            your current emotional state.
+
+        </p>
+
+
+        <!-- =================================================
+             MOOD FORM
+             ================================================= -->
+
+        <form method="POST">
+
+            <div class="mood-options">
+
+
+                <!-- HAPPY -->
+
+                <label class="mood-option">
+
+                    <input
+                        type="radio"
+                        name="mood"
+                        value="Happy"
+                        required
+                    >
+
+                    <span class="mood-emoji">
+                        😊
+                    </span>
+
+                    <span class="mood-name">
+                        Happy
+                    </span>
+
+                </label>
+
+
+                <!-- CALM -->
+
+                <label class="mood-option">
+
+                    <input
+                        type="radio"
+                        name="mood"
+                        value="Calm"
+                    >
+
+                    <span class="mood-emoji">
+                        😌
+                    </span>
+
+                    <span class="mood-name">
+                        Calm
+                    </span>
+
+                </label>
+
+
+                <!-- NEUTRAL -->
+
+                <label class="mood-option">
+
+                    <input
+                        type="radio"
+                        name="mood"
+                        value="Neutral"
+                    >
+
+                    <span class="mood-emoji">
+                        😐
+                    </span>
+
+                    <span class="mood-name">
+                        Neutral
+                    </span>
+
+                </label>
+
+
+                <!-- SAD -->
+
+                <label class="mood-option">
+
+                    <input
+                        type="radio"
+                        name="mood"
+                        value="Sad"
+                    >
+
+                    <span class="mood-emoji">
+                        😔
+                    </span>
+
+                    <span class="mood-name">
+                        Sad
+                    </span>
+
+                </label>
+
+
+                <!-- ANXIOUS -->
+
+                <label class="mood-option">
+
+                    <input
+                        type="radio"
+                        name="mood"
+                        value="Anxious"
+                    >
+
+                    <span class="mood-emoji">
+                        😟
+                    </span>
+
+                    <span class="mood-name">
+                        Anxious
+                    </span>
+
+                </label>
+
+
+                <!-- ANGRY -->
+
+                <label class="mood-option">
+
+                    <input
+                        type="radio"
+                        name="mood"
+                        value="Angry"
+                    >
+
+                    <span class="mood-emoji">
+                        😡
+                    </span>
+
+                    <span class="mood-name">
+                        Angry
+                    </span>
+
+                </label>
+
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="mood-submit"
+            >
+
+                💙 Save My Mood
+
+            </button>
+
+        </form>
+
+
+        <!-- =================================================
+             INFORMATION
+             ================================================= -->
+
+        <div class="mood-info">
+
+            <strong>
+                💡 Why track your mood?
+            </strong>
+
+            <p>
+
+                Regular mood tracking helps identify
+                emotional patterns over time and can
+                support better wellbeing awareness.
+
+            </p>
+
+        </div>
+
+
+        <!-- PRIVACY -->
+
+        <div class="mood-privacy">
+
+            🔒 Your mood information is stored securely
+            for your personal wellbeing tracking.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+    <div class="logo">
+        🧠 Mind<span>Sentinel</span>
+    </div>
+
+    <p>
+        AI-Powered Dynamic Mental Health Monitoring
+        and Distress Prediction System
+    </p>
+
+    <p>
+        © 2026 MindSentinel. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

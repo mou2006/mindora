@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Assessment Result | MindSentinel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 Mind<span>Sentinel</span>
+    </div>
+
+    <nav>
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/assessment">
+            Assessment
+        </a>
+
+        <a href="#">
+            AI Support
+        </a>
+
+        <a href="#">
+            Mood
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard">
+
+    <section class="dashboard-section">
+
+        <div class="action-card">
+
+            <p class="small-title">
+                ASSESSMENT RESULT
+            </p>
+
+            <h1>
+                Your Wellbeing Result
+            </h1>
+
+
+            <div class="dashboard-icon">
+                {{ emotion }}
+            </div>
+
+
+            <h2>
+                Current Emotion
+            </h2>
+
+            <h3>
+                {{ emotion }}
+            </h3>
+
+
+            <hr>
+
+
+            <h2>
+                Distress Level
+            </h2>
+
+            <h1>
+                {{ risk }}
+            </h1>
+
+
+            <p>
+                Your screening score is:
+            </p>
+
+            <h2>
+                {{ score }} / 27
+            </h2>
+
+
+            {% if score <= 7 %}
+
+                <p>
+                    Your responses indicate a relatively
+                    low level of distress at this time.
+                </p>
+
+            {% elif score <= 14 %}
+
+                <p>
+                    Your responses indicate some signs of
+                    emotional distress. Consider taking some
+                    time for self-care and talking with someone
+                    you trust.
+                </p>
+
+            {% elif score <= 21 %}
+
+                <p>
+                    Your responses indicate a higher level of
+                    distress. Consider reaching out to a
+                    qualified mental health professional.
+                </p>
+
+            {% else %}
+
+                <p>
+                    Your responses indicate a very high level
+                    of distress. Consider seeking support from
+                    a qualified mental health professional
+                    or an appropriate emergency support service.
+                </p>
+
+            {% endif %}
+
+
+            <br>
+
+
+            <a href="/dashboard"
+               class="dashboard-action-btn">
+
+                ← Back to Dashboard
+
+            </a>
+
+
+            <a href="/assessment"
+               class="dashboard-action-btn">
+
+                Retake Assessment
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <div class="privacy-box">
+
+        🔒 <strong>Important</strong>
+
+        <p>
+            This result is an AI-based screening indicator
+            for your project prototype and is not a medical
+            diagnosis.
+        </p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="logo">
+        🧠 Mind<span>Sentinel</span>
+    </div>
+
+    <p>
+        AI-Powered Mental Health Monitoring
+    </p>
+
+</footer>
+
+</body>
+
+</html>

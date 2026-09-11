@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | MindSentinel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: #263b59;
+        }
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+            min-height: 72px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #263b59;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #52657a;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #5479a8;
+        }
+
+        .nav-button {
+            text-decoration: none;
+            background: #5479a8;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* =========================================
+           PAGE
+        ========================================= */
+
+        .dashboard-page {
+            width: 90%;
+            max-width: 1250px;
+            margin: 35px auto 60px;
+        }
+
+        .welcome-section {
+            margin-bottom: 25px;
+        }
+
+        .welcome-section h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #263b59;
+        }
+
+        .welcome-section p {
+            color: #718096;
+            font-size: 15px;
+        }
+
+        /* =========================================
+           ALERT
+        ========================================= */
+
+        .warning-box {
+            background: #fff8e8;
+            border-left: 5px solid #e5a93d;
+            padding: 18px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .warning-box h3 {
+            margin-bottom: 7px;
+            color: #805f19;
+        }
+
+        .warning-box p {
+            color: #6d5a2b;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           DISTRESS CARD
+        ========================================= */
+
+        .distress-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 25px rgba(37, 60, 90, 0.08);
+        }
+
+        .distress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .distress-header h2 {
+            color: #263b59;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .distress-header p {
+            color: #7b8794;
+            font-size: 14px;
+        }
+
+        .risk-badge {
+            padding: 9px 17px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 13px;
+            background: #eef2f7;
+            color: #52657a;
+            white-space: nowrap;
+        }
+
+        .score-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .score-circle {
+            min-width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: #edf3fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score-circle strong {
+            font-size: 34px;
+            color: #5479a8;
+        }
+
+        .score-circle span {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .score-info {
+            flex: 1;
+        }
+
+        .score-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 13px;
+            background: #e8edf3;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #5479a8;
+            border-radius: 20px;
+        }
+
+        .score-info small {
+            color: #7b8794;
+        }
+
+        .trend-box {
+            margin-top: 18px;
+            padding: 13px 16px;
+            background: #f6f8fb;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           MAIN CARDS
+        ========================================= */
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 23px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(37, 60, 90, 0.07);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .feature-card p {
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 42px;
+        }
+
+        .feature-card a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #5479a8;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        /* =========================================
+           TWO COLUMN
+        ========================================= */
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(37, 60, 90, 0.07);
+        }
+
+        .panel h2 {
+            font-size: 19px;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================
+           CHART
+        ========================================= */
+
+        .chart {
+            height: 230px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            border-bottom: 1px solid #dce3eb;
+            padding: 15px 10px 0;
+        }
+
+        .chart-column {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .chart-bar {
+            width: 55%;
+            min-height: 8px;
+            background: #7d9bbb;
+            border-radius: 7px 7px 0 0;
+            position: relative;
+        }
+
+        .chart-bar span {
+            position: absolute;
+            top: -23px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: #52657a;
+        }
+
+        .chart-label {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 10px;
+            color: #8a96a3;
+        }
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-item span:first-child {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .status-item strong {
+            color: #263b59;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           MOOD HISTORY
+        ========================================= */
+
+        .mood-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mood-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7f9fc;
+            padding: 12px 15px;
+            border-radius: 9px;
+        }
+
+        .mood-name {
+            font-weight: 600;
+        }
+
+        .mood-date {
+            color: #8995a3;
+            font-size: 12px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 10px;
+            color: #8995a3;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           MOOD SUMMARY
+        ========================================= */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .summary-item {
+            background: #f7f9fc;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .summary-item strong {
+            display: block;
+            font-size: 22px;
+            color: #5479a8;
+            margin-bottom: 5px;
+        }
+
+        .summary-item span {
+            font-size: 12px;
+            color: #7b8794;
+        }
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================= */
+
+        .quick-actions {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(37, 60, 90, 0.07);
+        }
+
+        .quick-actions h2 {
+            margin-bottom: 18px;
+            font-size: 19px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .action {
+            text-decoration: none;
+            background: #f4f7fb;
+            color: #263b59;
+            padding: 17px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .action:hover {
+            background: #eaf0f7;
+        }
+
+        /* =========================================
+           DISCLAIMER
+        ========================================= */
+
+        .disclaimer {
+            margin-top: 25px;
+            text-align: center;
+            color: #8a96a3;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+            background: white;
+            margin-top: 40px;
+            padding: 35px 7%;
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr;
+            gap: 35px;
+            border-top: 1px solid #edf0f4;
+        }
+
+        .footer h3,
+        .footer h4 {
+            margin-bottom: 12px;
+        }
+
+        .footer p {
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            display: block;
+            color: #5479a8;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-button {
+                display: none;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .score-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section h1 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠
+        <span>MindSentinel</span>
+    </div>
+
+
+    <nav class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('assessment') }}">
+            Assessment
+        </a>
+
+        <a href="{{ url_for('emotion') }}">
+            Emotion
+        </a>
+
+        <a href="{{ url_for('mood_history') }}">
+            Mood Tracker
+        </a>
+
+    </nav>
+
+
+    <a href="{{ url_for('assessment') }}"
+       class="nav-button">
+
+        Check Your Mood
+
+    </a>
+
+</header>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<main class="dashboard-page">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome-section">
+
+        <h1>
+            Welcome, {{ user_name }} 👋
+        </h1>
+
+        <p>
+            Monitor your emotional wellbeing,
+            track your mood and understand your
+            distress trends.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         EARLY WARNING
+    ================================================= -->
+
+    {% if distress_score is not none %}
+
+    <section class="warning-box">
+
+        <h3>
+            🔔 Wellbeing Monitoring Alert
+        </h3>
+
+        <p>
+            {{ early_warning }}
+        </p>
+
+    </section>
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         DYNAMIC DISTRESS
+    ================================================= -->
+
+    <section class="distress-card">
+
+        <div class="distress-header">
+
+            <div>
+
+                <h2>
+                    Dynamic Distress Indicator
+                </h2>
+
+                <p>
+                    Based on assessment, mood,
+                    emotion and recent history.
+                </p>
+
+            </div>
+
+
+            <div class="risk-badge">
+
+                {{ distress_risk }}
+
+            </div>
+
+        </div>
+
+
+        <div class="score-section">
+
+
+            <div class="score-circle">
+
+                {% if distress_score is not none %}
+
+                    <strong>
+                        {{ "%.1f"|format(distress_score) }}
+                    </strong>
+
+                {% else %}
+
+                    <strong>
+                        --
+                    </strong>
+
+                {% endif %}
+
+                <span>
+                    / 100
+                </span>
+
+            </div>
+
+
+            <div class="score-info">
+
+                <h3>
+                    Current wellbeing indicator
+                </h3>
+
+
+                <div class="progress-container">
+
+                    {% if distress_score is not none %}
+
+                        <div class="progress-bar"
+                             style="width: {{ distress_score }}%;">
+                        </div>
+
+                    {% else %}
+
+                        <div class="progress-bar"
+                             style="width: 0%;">
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <small>
+                    0 = lower indicator &nbsp; | &nbsp;
+                    100 = higher indicator
+                </small>
+
+
+                <div class="trend-box">
+
+                    <strong>
+                        Trend:
+                    </strong>
+
+                    {{ distress_trend }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FEATURE CARDS
+    ================================================= -->
+
+    <section class="cards-grid">
+
+
+        <!-- Assessment -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📝
+            </div>
+
+            <h3>
+                Assessment
+            </h3>
+
+            <p>
+                Complete a short wellbeing
+                assessment and monitor your
+                current risk indicator.
+            </p>
+
+            <a href="{{ url_for('assessment') }}">
+                Take Assessment →
+            </a>
+
+        </div>
+
+
+        <!-- Mood -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                😊
+            </div>
+
+            <h3>
+                Mood Tracking
+            </h3>
+
+            <p>
+                Record your daily mood and
+                observe changes over time.
+            </p>
+
+            <a href="{{ url_for('mood') }}">
+                Record Mood →
+            </a>
+
+        </div>
+
+
+        <!-- Emotion -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <h3>
+                Emotion Detection
+            </h3>
+
+            <p>
+                Analyze written text to identify
+                a possible emotional state.
+            </p>
+
+            <a href="{{ url_for('emotion') }}">
+                Analyze Emotion →
+            </a>
+
+        </div>
+
+
+        <!-- AI Support -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💬
+            </div>
+
+            <h3>
+                AI Support
+            </h3>
+
+            <p>
+                Access supportive wellbeing
+                guidance based on your input.
+            </p>
+
+            <a href="{{ url_for('ai_support') }}">
+                Open AI Support →
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         TWO COLUMNS
+    ================================================= -->
+
+    <section class="two-column">
+
+
+        <!-- DISTRESS TREND -->
+
+        <div class="panel">
+
+            <h2>
+                📈 Distress Trend
+            </h2>
+
+
+            {% if distress_history %}
+
+            <div class="chart">
+
+                {% for item in distress_history %}
+
+                <div class="chart-column">
+
+                    <div
+                        class="chart-bar"
+                        style="height: {{ item['distress_score'] }}%;"
+                    >
+
+                        <span>
+                            {{ "%.0f"|format(item['distress_score']) }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-around;
+                margin-top:10px;
+            ">
+
+                {% for item in distress_history %}
+
+                <div class="chart-label">
+
+                    {{ loop.index }}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <div class="empty-state">
+
+                No distress history available yet.
+
+                <br><br>
+
+                Complete an assessment
+                or record a mood.
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- CURRENT STATUS -->
+
+        <div class="panel">
+
+            <h2>
+                📊 Current Status
+            </h2>
+
+
+            <div class="status-item">
+
+                <span>
+                    Assessment
+                </span>
+
+                <strong>
+
+                    {% if score is not none %}
+                        {{ score }}/27
+                    {% else %}
+                        Not completed
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Risk
+                </span>
+
+                <strong>
+                    {{ risk }}
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Emotion
+                </span>
+
+                <strong>
+                    {{ emotion }}
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Mood Entries
+                </span>
+
+                <strong>
+                    {{ mood_count }}
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Trend
+                </span>
+
+                <strong>
+                    {{ distress_trend }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECENT MOODS
+    ================================================= -->
+
+    <section class="two-column">
+
+
+        <div class="panel">
+
+            <h2>
+                😊 Recent Mood History
+            </h2>
+
+
+            {% if recent_moods %}
+
+            <div class="mood-list">
+
+                {% for mood_item in recent_moods %}
+
+                <div class="mood-item">
+
+                    <span class="mood-name">
+
+                        {{ mood_item['mood'] }}
+
+                    </span>
+
+
+                    <span class="mood-date">
+
+                        {{ mood_item['created_at'] }}
+
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <div class="empty-state">
+
+                No mood entries yet.
+
+                <br><br>
+
+                <a href="{{ url_for('mood') }}"
+                   style="color:#5479a8;text-decoration:none;font-weight:bold;">
+
+                    Record your first mood →
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- MOOD SUMMARY -->
+
+        <div class="panel">
+
+            <h2>
+                📌 Mood Summary
+            </h2>
+
+
+            {% if mood_summary %}
+
+            <div class="summary-grid">
+
+                {% for item in mood_summary %}
+
+                <div class="summary-item">
+
+                    <strong>
+                        {{ item['count'] }}
+                    </strong>
+
+                    <span>
+                        {{ item['mood'] }}
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <div class="empty-state">
+
+                Mood summary will appear
+                after you record moods.
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+    ================================================= -->
+
+    <section class="quick-actions">
+
+        <h2>
+            ⚡ Quick Actions
+        </h2>
+
+
+        <div class="action-grid">
+
+            <a class="action"
+               href="{{ url_for('assessment') }}">
+
+                📝 New Assessment
+
+            </a>
+
+
+            <a class="action"
+               href="{{ url_for('mood') }}">
+
+                😊 Track Mood
+
+            </a>
+
+
+            <a class="action"
+               href="{{ url_for('emotion') }}">
+
+                🧠 Check Emotion
+
+            </a>
+
+
+            <a class="action"
+               href="{{ url_for('ai_support') }}">
+
+                💬 AI Support
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         DISCLAIMER
+    ================================================= -->
+
+    <div class="disclaimer">
+
+        MindSentinel is a prototype wellbeing screening
+        and support system. The distress indicator is not
+        a medical diagnosis. If someone is in immediate
+        danger or needs urgent help, contact appropriate
+        emergency or professional support services.
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div>
+
+        <h3>
+            🧠 MindSentinel
+        </h3>
+
+        <p>
+            AI-powered dynamic mental wellbeing
+            monitoring and distress risk prediction
+            prototype.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Quick Links
+        </h4>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('assessment') }}">
+            Assessment
+        </a>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Important
+        </h4>
+
+        <p>
+            This system provides a wellbeing
+            screening indicator and supportive
+            information. It does not provide
+            medical diagnosis.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

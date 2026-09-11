@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Support | MindSentinel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .logout {
+            color: #dc2626 !important;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            margin-bottom: 10px;
+            color: #312e81;
+        }
+
+        .hero p {
+            color: #6b7280;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            padding: 25px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
+        }
+
+        .ai-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .online {
+            color: #16a34a;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .chat-box {
+            min-height: 250px;
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .welcome-message {
+            background: #eef2ff;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 18px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 75%;
+            padding: 13px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+        }
+
+        .message.ai .message-content {
+            background: #f3f4f6;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user .message-content {
+            background: #4f46e5;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .emotion-result {
+            margin-top: 12px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .input-area {
+            margin-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 110px;
+            resize: vertical;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #4f46e5;
+        }
+
+        .send-btn {
+            margin-top: 12px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background: #4338ca;
+        }
+
+        .history-section {
+            margin-top: 30px;
+        }
+
+        .history-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .history-card {
+            background: white;
+            padding: 18px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .history-user {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .history-ai {
+            color: #4b5563;
+            margin-bottom: 10px;
+        }
+
+        .history-meta {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .safety-box {
+            margin-top: 30px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            padding: 18px;
+            border-radius: 12px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .message-content {
+                max-width: 90%;
+            }
+
+            .page-container {
+                margin-top: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 MindSentinel
+    </div>
+
+    <nav class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('assessment') }}">
+            Assessment
+        </a>
+
+        <a href="{{ url_for('mood') }}">
+            Mood
+        </a>
+
+        <a href="{{ url_for('mood_history') }}">
+            Mood History
+        </a>
+
+        <a href="{{ url_for('emotion') }}">
+            Emotion Detection
+        </a>
+
+        <a href="{{ url_for('ai_support') }}">
+            AI Support
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page-container">
+
+
+    <section class="hero">
+
+        <h1>
+            🤖 AI Mental Health Support
+        </h1>
+
+        <p>
+            Express your thoughts and receive supportive
+            AI-based guidance.
+        </p>
+
+    </section>
+
+
+    <section class="chat-container">
+
+
+        <div class="chat-header">
+
+            <div class="ai-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h2>
+                    MindSentinel AI Assistant
+                </h2>
+
+                <div class="online">
+                    ● Support Assistant Available
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-box">
+
+
+            <div class="welcome-message">
+
+                👋 <strong>Hello!</strong>
+
+                <br><br>
+
+                I'm here to listen to your thoughts.
+
+                You can describe how you are feeling,
+                what is worrying you, or what happened today.
+
+                <br><br>
+
+                I will analyze the text and provide a
+                supportive response.
+
+            </div>
+
+
+            {% if user_message %}
+
+            <div class="message user">
+
+                <div class="message-content">
+
+                    {{ user_message }}
+
+                </div>
+
+            </div>
+
+
+            <div class="message ai">
+
+                <div class="message-content">
+
+                    <strong>🤖 MindSentinel AI</strong>
+
+                    <br><br>
+
+                    {{ response }}
+
+                    {% if detected_emotion %}
+
+                    <div class="emotion-result">
+
+                        <strong>
+                            Detected Emotion:
+                        </strong>
+
+                        {{ detected_emotion }}
+
+                        <br>
+
+                        <strong>
+                            Confidence:
+                        </strong>
+
+                        {{ confidence }}%
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <div class="input-area">
+
+            <form method="POST"
+                  action="{{ url_for('ai_support') }}">
+
+                <textarea
+                    name="message"
+                    placeholder="Tell me how you are feeling..."
+                    required></textarea>
+
+                <button
+                    type="submit"
+                    class="send-btn">
+
+                    💬 Get AI Support
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+    </section>
+
+
+    {% if conversations %}
+
+    <section class="history-section">
+
+        <h2>
+            🕒 Previous Conversations
+        </h2>
+
+
+        {% for conversation in conversations %}
+
+        <div class="history-card">
+
+            <div class="history-user">
+
+                👤 You:
+
+                {{ conversation["user_message"] }}
+
+            </div>
+
+
+            <div class="history-ai">
+
+                🤖 AI:
+
+                {{ conversation["ai_response"] }}
+
+            </div>
+
+
+            <div class="history-meta">
+
+                Emotion:
+                <strong>
+                    {{ conversation["detected_emotion"] }}
+                </strong>
+
+                &nbsp; | &nbsp;
+
+                Confidence:
+                {{ conversation["confidence"] }}%
+
+                &nbsp; | &nbsp;
+
+                {{ conversation["created_at"] }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+
+    {% endif %}
+
+
+    <div class="safety-box">
+
+        ⚠️ <strong>Important:</strong>
+
+        MindSentinel is a student project designed
+        for supportive monitoring and demonstration.
+
+        It does not provide a medical diagnosis or
+        replace professional mental-health care.
+
+        If someone is in immediate danger or at risk
+        of harming themselves or others, contact local
+        emergency services or a qualified professional.
+
+    </div>
+
+
+    <a href="{{ url_for('dashboard') }}"
+       class="back-btn">
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 MindSentinel |
+    AI-Powered Mental Health Monitoring System
+
+</footer>
+
+
+</body>
+
+</html>
